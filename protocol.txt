@@ -1,0 +1,70 @@
+protocol
+
+------ Stage 1. initialize server/client ------
+I. server
+a. The server initializes the RPC server using rpc_init_server()
+b. The server registers functions in a linked list using rpc_register(), providing the function name and its handler. The server stores the handler and name in a node. Each node has an incremental ID starting from 0. 
+c. The server serves incoming requests from client using rpc_serve_all(), and opens a new thread for each connection. 
+
+II. client
+a. The client initializes the RPC client using rpc_init_client() and connect to server. 
+
+------ Stage 2. client sends the request type to server ------
+
+Client sends: request type (int32_t) (FIND_REQUEST=2, CALL_REQUEST=1)
+Server receives: request type (int32_t). if it is a find request, go to stage 3.1; if call request, go to stage 3.2; else, close connetion. 
+
+------ Stage 3. Server handles request ------
+
+-- Stage 3.1 Server handles FIND request -- 
+Client sends: function name's length (int32_t)
+Server receives: function name's length (int32_t). Then allocate space for function name
+
+Client sends: function name (char*)
+Server receives: function name (char*). Then search this function in the linked list. 
+
+Server sends: response flag (int32_t, If found function, this flag is the node's ID, starting from 0; if not found, this flag is -1)
+Client receives: response flag. (int32_t, If -1, return NULL; else, return a rpc_handle that stores this node ID). 
+
+-- Stage 3.2. Server handles CALL request -- 
+// a. client verify rpc_data payload integrity: 
+Client checks:
+    if (send_data is valid:not NULL; 0 < data2_len < 100,000; data2_len and data2 matches){
+        client sends: flag = 0(int32_t)
+        server receives: flag = 0(int32_t)
+    }
+    else{
+        client sends: flag = -1 (int32_t)
+        server receives: flag = -1(int32_t)
+        client returns
+        server closes this connection
+    }
+
+// b. client sends rpc_data payload to server:
+
+Client sends: rpc_data->data1 (int convert to int32_t)
+Server receives: rpc_data->data1 (int32_t convert to int)
+
+Client sends: rpc_data->data2_len(size_t convert to uint32_t)
+Server receives rpc_data->data2_len (uint32_t convert to size_t), then allocate space for data2_len
+
+if(data2_len > 0){
+    Client sends: rpc_data->data2(void*)
+    Server receives: rpc_data->data2 (void*)
+}
+
+// c. client sends node's id to server
+Client sends: rpc_handle's nodeId (int32_t)
+Server receives: rpc_handle's nodeId (int32_t)
+
+if(server can't find this nodeID in linked list){
+    Server: close connection
+    Client: exits
+}
+else{
+    Server: construct rpc_data, call registered function and get output
+}
+
+// d. server sends rpc_data output to client
+Same as step a & b. but with role switched. 
+
