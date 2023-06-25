@@ -3,6 +3,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "dataStructure.h"
 
@@ -46,10 +47,10 @@ void insertAtLinkedListTail(linkedList_t* linkedList, node_t* newNode){
 
 function_t* createFunction(char* name, rpc_handler handler){
     function_t* newFunction = (function_t*)malloc(sizeof(*newFunction)); 
-    assert(newFunction != NULL); 
+    assert(newFunction != NULL);
     //newFunction->name = name; 
     size_t name_len = strlen(name); 
-    newFunction->name = (char*)malloc(sizeof(name_len + 1)); 
+    newFunction->name = (char*)malloc(name_len + 1); 
     strcpy(newFunction->name, name); 
     newFunction->handler = handler; 
     return newFunction; 
