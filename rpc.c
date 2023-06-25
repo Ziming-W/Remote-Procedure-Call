@@ -84,6 +84,9 @@ struct rpc_server {
 
 /* initial a rpc_server */
 rpc_server *rpc_init_server(int port) {
+    if(port < 0 || port > 65535){
+        return NULL; 
+    }
     // initial rpc_server
     rpc_server* server = (rpc_server*)malloc(sizeof(*server));
     if(!server){
@@ -291,6 +294,9 @@ struct rpc_handle {
 
 /* initial rpc_client */
 rpc_client *rpc_init_client(char *addr, int port) {
+    if(port < 0 || port > 65535){
+        return NULL; 
+    }
     // allocate memory
     rpc_client *client = (rpc_client *)malloc(sizeof(rpc_client));
     if (!client) {
@@ -317,7 +323,7 @@ rpc_client *rpc_init_client(char *addr, int port) {
     server_addr.sin6_port = htons(port);
     if (connect(client->sockfd_comm, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         perror("connect");
-        close(client->sockfd_comm);
+        //close(client->sockfd_comm);
         free(client);
         return NULL;
     }

@@ -2,6 +2,12 @@
 Remote Procedure Call protocol  
 Project work for COMP30023 (Computer Systems) at Unimelb
 
+## Patch logs
+| Commit    |Date | Note |
+| -------- | ------- | --------| 
+| [Submitted Version](https://github.com/Ziming-W/Remote-Procedure-Call/commit/36c95e72dd28e261e12eb7dc952ac14a6544adbe)|-| 13/15, passed all visible tests, minor memory leak, failed small number of hidden test
+|[Fixed bugs for hidden test](https://github.com/Ziming-W/Remote-Procedure-Call/commit/1edd8f2fc4dccf1b0385d41a4d22b005750d3d76)|2023-6-25|14/15 Fixed bugs regarding long function name
+|[Fixed bugs for hidden tests]()|2023-6-25|14.05/15 Fixed bugs regarding bad port for client/server
 ## File Description
 | File    | Description |
 | -------- | ------- |
