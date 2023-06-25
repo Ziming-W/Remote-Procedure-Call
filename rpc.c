@@ -237,6 +237,8 @@ void* rpc_server_handle_thread(void* args){
     }
     //close connection
     close(sockfd_comm); 
+    //free rpc server linked list
+    freeLinkedList(((rpc_server*)(((thread_args_t*)args)->srv))->functionList); 
     free(args); 
     return NULL; 
 }

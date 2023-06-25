@@ -54,3 +54,16 @@ function_t* createFunction(char* name, rpc_handler handler){
     newFunction->handler = handler; 
     return newFunction; 
 }
+
+void freeLinkedList(linkedList_t* linkedList){
+    node_t *curr, *prev;
+	assert(linkedList!=NULL);
+	curr = linkedList->head;
+	while (curr) {
+		prev = curr;
+		curr = curr->next;
+		free(prev->data);
+        free(prev); 
+	}
+	free(linkedList);
+}

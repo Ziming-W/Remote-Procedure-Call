@@ -2,6 +2,12 @@
 Remote Procedure Call protocol  
 Project work for COMP30023 (Computer Systems) at Unimelb
 
+## Patch logs
+| Commit    |Date | Note |
+| -------- | ------- | --------| 
+| [Submitted Version](https://github.com/Ziming-W/Remote-Procedure-Call/commit/36c95e72dd28e261e12eb7dc952ac14a6544adbe)|-| 13/15, passed all visible tests, minor memory leak, failed small number of hidden test
+|||
+
 ## File Description
 | File    | Description |
 | -------- | ------- |
@@ -12,6 +18,7 @@ Project work for COMP30023 (Computer Systems) at Unimelb
 |client.c|a very simple rpc test client|
 |server.c |a very simple rpc test server|
 |server.a client.a | advanced testing framework artifacts, the name "server/client" clashed with server.c, client.c, but they are not relevant with each other
+|/cases | visible test cases, PASSED ALL
 
 ## Complie
 (Notice: some complied artifacts in Makefile are for marking purpose)

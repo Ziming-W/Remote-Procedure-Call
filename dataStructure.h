@@ -34,6 +34,7 @@ node_t* createNode(void* data, int32_t id);
 linkedList_t* createLinkedList(); 
 void insertAtLinkedListTail(linkedList_t* linkedList, node_t* newNode); 
 function_t* createFunction(char* name, rpc_handler handler); 
+void freeLinkedList(linkedList_t* linkedList); 
 
 
 #endif
