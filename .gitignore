@@ -7,5 +7,6 @@ rpc-server
 ci-client
 ci-server
 *:*Zone.Identifier
-/cases
 /hidden
+!client.a
+!server.a
